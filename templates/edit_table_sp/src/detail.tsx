@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import qs from "qs";
+import { PageHeader } from "antd";
 import DescriptionsPro from "../descriptions_pro";
 import chiliReq from "../../chili_req";
 import getxxxDetail from "../../chili_req/apis/get_xxx_detail";
+import { getPathByName, routes } from "../../router";
 
-export default function Detail() {
+interface Props {
+  history?: any;
+}
+
+export default function Detail(props: Props) {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
@@ -24,8 +30,13 @@ export default function Detail() {
     });
   }, []);
 
+  const onBack = () => {
+    props.history.push(getPathByName(routes.xxx));
+  };
+
   return (
     <div className="detail content-box">
+      <PageHeader onBack={onBack} title="" subTitle="" />
       <div className="reset-scoll">
         <DescriptionsPro title="xxx" items={data} />
       </div>
